@@ -141,3 +141,9 @@ reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/impleme
    ```
 
 5. add SessionGuard and SessionProvider
+
+## Step 6: Set up Federated Logout
+
+1. make federerated-logout api 'src/app/api/auth/federated-logout/route.ts'
+2. replace next-auth logout by federatedLogout 'src/components/Logout.tsx' and 'src/utils/federatedLogout.ts'
+3.
