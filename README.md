@@ -1,8 +1,10 @@
 # NextJS-Keycloak
 
-reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/implementing-authentication-in-next-js-v13-application-with-keycloak-part-1-f4817c53c7ef)
+reference
+[NextJS-Keycloak part 1](https://medium.com/inspiredbrilliance/implementing-authentication-in-next-js-v13-application-with-keycloak-part-1-f4817c53c7ef)
+[NextJS-Keycloak part 2](https://medium.com/inspiredbrilliance/implementing-authentication-in-next-js-v13-application-with-keycloak-part-2-6f68406bb3b5)
 
-## Step 1: Setup a keycloak server
+## A: Setup a keycloak server
 
 1. run terminal
    `docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.4 start-dev`
@@ -11,14 +13,14 @@ reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/impleme
 3. create realm
 4. create client
 
-## Step 2: Setup NextJS with NextAuth
+## B: Setup NextJS with NextAuth
 
 1. create nextjs app
    `npx create-next-app@13.5.4`
 2. install next-auth
    `npm install next-auth@4.24.3`
 
-## Step 3: Configure the authOptions with KeycloakProvider for next-auth and initialize route handler.
+## C: Configure the authOptions with KeycloakProvider for next-auth and initialize route handler.
 
 1. set api route with nextauth for keycloak path 'src/app/api/auth/[...nextauth]/route.ts'
 
@@ -44,7 +46,7 @@ reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/impleme
    NEXTAUTH_SECRET="<random assign>"
    ```
 
-## Step 4: Setup Basic React Server component
+## D: Setup Basic React Server component
 
 1. Modify src/app/page.tsx
 2. Create the Login and Logout component
@@ -55,9 +57,9 @@ reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/impleme
 
 3. Update Login and Logout componet code
 
-## Step 5: Set up Refleshing access token
+## E: Set up Refleshing access token
 
-1.  modified token with account data
+1. Modified token with account data
 
 ```typescript
 // src/app/api/auth/[...nextauth]/route.ts
@@ -72,7 +74,7 @@ reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/impleme
  }
 ```
 
-2.  add accessToken in session
+2. Add accessToken in session
 
 ```typescript
   // src/app/api/auth/[...nextauth]/route.ts
@@ -82,7 +84,7 @@ reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/impleme
    }
 ```
 
-4. Set up Api call to renew access token
+3. Set up Api call to renew access token
 
    ```typescript
    // src/app/api/auth/[...nextauth]/route.ts
@@ -140,10 +142,16 @@ reference [NextJS-Keycloak medium](https://medium.com/inspiredbrilliance/impleme
     },
    ```
 
-5. add SessionGuard and SessionProvider
+4. Add SessionGuard and SessionProvider
 
-## Step 6: Set up Federated Logout
+## F: Set up Federated Logout
 
 1. make federerated-logout api 'src/app/api/auth/federated-logout/route.ts'
 2. replace next-auth logout by federatedLogout 'src/components/Logout.tsx' and 'src/utils/federatedLogout.ts'
-3.
+   for clear keycloak session
+
+## G: Securing pages with middleware
+
+1. make public page 'src/app/public/page.tsx'
+2. make private page 'src/app/private/page.tsx'
+3. set private route in middleware path 'src/middleware.ts'

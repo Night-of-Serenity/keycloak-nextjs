@@ -29,8 +29,8 @@ export const authOptions: AuthOptions = {
   session: {
     maxAge: 60 * 30, // reflesh token expires in 30 minutes
   },
+  // called when the user is logged in
   callbacks: {
-    // called when the user is logged in
     async jwt({ token, account }) {
       // modify the token with the account data
       if (account) {
