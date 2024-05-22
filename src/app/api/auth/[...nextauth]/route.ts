@@ -26,6 +26,7 @@ export const authOptions: AuthOptions = {
       issuer: process.env.KEYCLOAK_ISSUER,
     }),
   ],
+
   session: {
     maxAge: 60 * 30, // reflesh token expires in 30 minutes
   },
@@ -76,6 +77,10 @@ export const authOptions: AuthOptions = {
       session.accessToken = token.accessToken;
       return session;
     },
+  },
+  pages: {
+    signIn: "/auth/signin",
+    signOut: "/auth/signout",
   },
 };
 const handler = NextAuth(authOptions);

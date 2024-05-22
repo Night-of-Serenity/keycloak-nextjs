@@ -4,6 +4,8 @@ reference
 [NextJS-Keycloak part 1](https://medium.com/inspiredbrilliance/implementing-authentication-in-next-js-v13-application-with-keycloak-part-1-f4817c53c7ef)
 [NextJS-Keycloak part 2](https://medium.com/inspiredbrilliance/implementing-authentication-in-next-js-v13-application-with-keycloak-part-2-6f68406bb3b5)
 
+\*\*\* these are short note of implement step of project, please read references above for more detail
+
 ## A: Setup a keycloak server
 
 1. run terminal
@@ -155,3 +157,29 @@ reference
 1. make public page 'src/app/public/page.tsx'
 2. make private page 'src/app/private/page.tsx'
 3. set private route in middleware path 'src/middleware.ts'
+
+## H: Using custom Sign in and Sign out components
+
+1. Create signin component page 'src/app/auth/signin/page.tsx'
+2. Create Signout component page 'src/app/auth/signout/page.tsx`
+3. Config route to use signin and signout page 'src/app/api/auth/[...nextauth]/route.ts'
+
+   ```typescript
+   // src/app/api/auth/[...nextauth]/route.ts
+   import { AuthOptions, TokenSet } from "next-auth";
+   import NextAuth from "next-auth/next";
+   import KeycloakProvider from "next-auth/providers/keycloak";
+
+   export const authOptions: AuthOptions = {
+     // ...
+     pages: {
+       signIn: "/auth/signin",
+       signOut: "/auth/signout",
+     },
+     // ...
+   };
+
+   const handler = NextAuth(authOptions);
+
+   export { handler as GET, handler as POST };
+   ```
