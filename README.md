@@ -8,8 +8,10 @@ reference
 
 ## A: Setup a keycloak server
 
-1. run terminal
-   `docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.4 start-dev`
+1. run docker container in terminal with
+   `bash docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:22.0.4 start-dev`
+   or
+   `bash  docker compose up`
 
 2. open <http://localhost:8080> and login with username: admin password: admin
 3. create realm
