@@ -5,28 +5,28 @@ import { getServerSession } from "next-auth";
 import { redirect, useParams } from "next/navigation";
 
 const signinErrors: Record<string | "default", string> = {
-  // ...
-};
-
-interface SignInPageProp {
-  params: object;
-  searchParams: {
-    callbackUrl: string;
-    error: string;
-  };
+// ...
 }
 
-export default async function Signin({
-  searchParams: { callbackUrl, error },
-}: SignInPageProp) {
+interface SignInPageProp {
+  params: object
+  searchParams: {
+    callbackUrl: string
+    error: string
+  }
+}
+
+export default async function Signin({ searchParams: { callbackUrl, error } }: SignInPageProp) {
   const session = await getServerSession(authOptions);
   if (session) {
-    redirect(callbackUrl || "/");
+    redirect(callbackUrl || "/")
   }
   return (
     <div>
-      {error && <div>{signinErrors[error.toLowerCase()]}</div>}
+      {error && <div>
+        {signinErrors[error.toLowerCase()]}
+      </div>}
       <Login />
     </div>
-  );
+  )
 }
